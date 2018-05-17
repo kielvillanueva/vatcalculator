@@ -1,0 +1,68 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .container
+      h1= title
+      br
+      form(method='post', action='/')
+        label(for='length') Password Length:
+        select#length.form-control(name='length')
+          if len
+            option= len
+          option 16
+          option 17
+          option 18
+          option 19
+          option 20
+          option 21
+          option 22
+          option 23
+          option 24
+          option 25
+          option 26
+          option 27
+          option 28
+          option 29
+          option 30
+        br
+        .checkbox
+          label
+            input#symbols(type='checkbox', name='symbols', value='true' checked=sym)
+            | Include Symbols (ex. @#$%)
+        .checkbox
+          label
+            input#numbers(type='checkbox', name='numbers', value='true' checked=num)
+            | Include Numbers (ex. 123456)
+        .checkbox
+          label
+            input#lowerCase(type='checkbox', name='lowerCase', value='true' checked=low)
+            | Include Lower Case (ex. abcdefgh)
+        .checkbox
+          label
+            input#upperCase(type='checkbox', name='upperCase', value='true' checked=upp)
+            | Include Upper Case (ex. ABCDEFGH)
+        .checkbox
+          label
+            input#similar(type='checkbox', name='similar', value='true' checked=sim)
+            | Exclude Similar Characters (|ilLI`oO0)
+        .checkbox
+          label
+            input#ambiguous(type='checkbox', name='ambiguous' value='true' checked=amb)
+            | Exclude Ambiguous Characters ({}[]/\()'"`~,;:.<>)
+        br
+        input.btn.btn-default(type='submit')
+        br
+        br
+        label(for='password') Password:
+        input#txtPassword.form-control(type='text', name='txtPassword' value=pass)
+        br
+        label(for='remember') Remember:
+        input#remember.form-control(type='text', name='remember' value=rem)

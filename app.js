@@ -9,6 +9,13 @@ app.set('view engine', 'pug');
 
 // npm run devstart
 
+var replace = {'a':'ant', 'A':'ANT', 'b':'bat', 'B':'BAT', 'c':'cat', 'C':'CAT', 'd':'dog', 'D':'DOG', 'e':'egg', 'E':'EGG', 'f':'fox', 'F':'FOX', 'g':'girl', 'G':'GIRL', 'h':'hat', 'H':'HAT', 'i':'ink', 'I':'INK', 'j':'jump', 'J':'JUMP', 'k':'kite', 'K':'KITE', 'l':'lot', 'L':'LOT', 'm':'mom', 'M':'MOM', 'n':'nice', 'N':'NICE', 'o':'one', 'O':'ONE', 'p':'pet', 'P':'PET', 'q':'quiz', 'Q':'QUIZ', 'r':'red', 'R':'RED', 's':'sun', 'S':'SUN', 't':'time', 'T':'TIME', 'u':'up', 'U':'UP', 'v':'van', 'V':'VAN', 'w':'win', 'W':'WIN', 'x':'xray', 'X':'XRAY', 'y':'yoyo', 'Y':'YOYO', 'z':'zinc', 'Z':'ZINC', '0':'Zero', '1':'One', '2':'Two', '3':'Three', '4':'Four', '5':'Five', '6':'Six', '7':'Seven', '8':'Eight', '9':'Nine'}
+
+var lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+var numbers = '0123456789';
+var symbols = '!@#$%^&*()+_-=}{[]|\':;"/?.><,`~';
+var upperCase = 'ABCDEFHIJKLMNOPQRSTUVWXYZ';
+
 app.get('/', function (req, res) {
     res.render('index', { title: 'Password Generator', low: true, upp: true, num: true});
 });
@@ -22,8 +29,6 @@ function makePassword(pool, length) {
     return newpass;
 }
 
-var replace = {'a':'ant', 'A':'ANT', 'b':'bat', 'B':'BAT', 'c':'cat', 'C':'CAT', 'd':'dog', 'D':'DOG', 'e':'egg', 'E':'EGG', 'f':'fox', 'F':'FOX', 'g':'girl', 'G':'GIRL', 'h':'hat', 'H':'HAT', 'i':'ink', 'I':'INK', 'j':'jump', 'J':'JUMP', 'k':'kite', 'K':'KITE', 'l':'lot', 'L':'LOT', 'm':'mom', 'M':'MOM', 'n':'nice', 'N':'NICE', 'o':'one', 'O':'ONE', 'p':'pet', 'P':'PET', 'q':'quiz', 'Q':'QUIZ', 'r':'red', 'R':'RED', 's':'sun', 'S':'SUN', 't':'time', 'T':'TIME', 'u':'up', 'U':'UP', 'v':'van', 'V':'VAN', 'w':'win', 'W':'WIN', 'x':'xray', 'X':'XRAY', 'y':'yoyo', 'Y':'YOYO', 'z':'zinc', 'Z':'ZINC'}
-
 app.post('/',function(req, res, next){
 
     // var low = '';
@@ -31,13 +36,13 @@ app.post('/',function(req, res, next){
     var pool = '';
 
     if (req.body.lowerCase) {
-        pool += 'abcdefghijklmnopqrstuvwxyz';
+        pool += lowerCase;
     } if (req.body.numbers) {
-        pool += '0123456789';
+        pool += numbers;
     } if (req.body.symbols) {
-        pool += '!@#$%^&*()+_-=}{[]|\':;"/?.><,`~';
+        pool += symbols;
     } if (req.body.upperCase) {
-        pool += 'ABCDEFHIJKLMNOPQRSTUVWXYZ';
+        pool += upperCase;
     } if (req.body.similar) {
         pool = pool.replace(/[|ilLI`oO0]/g, '');
     } if (req.body.ambiguous) {
@@ -54,14 +59,16 @@ app.post('/',function(req, res, next){
     //     exclude: amb + low
     // });
 
+    console.log('Pool: ' + pool)
+
     var password = makePassword(pool, req.body.length);
 
-    console.log(password);
+    console.log('Password: ' + password);
 
     remember = password;
 
-    remember = remember.split('').join(' ');
-    remember = remember.replace(/[aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ]/g, m => replace[m]);
+    remember = remember.split('').join('  ');
+    remember = remember.replace(/[aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789]/g, m => replace[m]);
 
     res.render('index', { title: 'Password Generator', pass: password, rem: remember, len: req.body.length, num: req.body.numbers, sym: req.body.symbols, low: req.body.lowerCase, upp: req.body.upperCase, sim: req.body.similar, amb: req.body.ambiguous});
 });
