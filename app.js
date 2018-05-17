@@ -9,7 +9,7 @@ app.set('view engine', 'pug');
 
 // npm run devstart
 
-var replace = {'a':'ant', 'A':'ANT', 'b':'bat', 'B':'BAT', 'c':'cat', 'C':'CAT', 'd':'dog', 'D':'DOG', 'e':'egg', 'E':'EGG', 'f':'fox', 'F':'FOX', 'g':'girl', 'G':'GIRL', 'h':'hat', 'H':'HAT', 'i':'ink', 'I':'INK', 'j':'jump', 'J':'JUMP', 'k':'kite', 'K':'KITE', 'l':'lot', 'L':'LOT', 'm':'mom', 'M':'MOM', 'n':'nice', 'N':'NICE', 'o':'one', 'O':'ONE', 'p':'pet', 'P':'PET', 'q':'quiz', 'Q':'QUIZ', 'r':'red', 'R':'RED', 's':'sun', 'S':'SUN', 't':'time', 'T':'TIME', 'u':'up', 'U':'UP', 'v':'van', 'V':'VAN', 'w':'win', 'W':'WIN', 'x':'xray', 'X':'XRAY', 'y':'yoyo', 'Y':'YOYO', 'z':'zinc', 'Z':'ZINC', '0':'Zero', '1':'One', '2':'Two', '3':'Three', '4':'Four', '5':'Five', '6':'Six', '7':'Seven', '8':'Eight', '9':'Nine'}
+var replace = {'a':'ant', 'A':'ANT', 'b':'bat', 'B':'BAT', 'c':'cat', 'C':'CAT', 'd':'dog', 'D':'DOG', 'e':'egg', 'E':'EGG', 'f':'fox', 'F':'FOX', 'g':'girl', 'G':'GIRL', 'h':'hat', 'H':'HAT', 'i':'ink', 'I':'INK', 'j':'jump', 'J':'JUMP', 'k':'kite', 'K':'KITE', 'l':'lot', 'L':'LOT', 'm':'mom', 'M':'MOM', 'n':'nice', 'N':'NICE', 'o':'old', 'O':'OLD', 'p':'pet', 'P':'PET', 'q':'quiz', 'Q':'QUIZ', 'r':'red', 'R':'RED', 's':'sun', 'S':'SUN', 't':'time', 'T':'TIME', 'u':'up', 'U':'UP', 'v':'van', 'V':'VAN', 'w':'win', 'W':'WIN', 'x':'xray', 'X':'XRAY', 'y':'yoyo', 'Y':'YOYO', 'z':'zinc', 'Z':'ZINC', '0':'Zero', '1':'One', '2':'Two', '3':'Three', '4':'Four', '5':'Five', '6':'Six', '7':'Seven', '8':'Eight', '9':'Nine'}
 
 var lowerCase = 'abcdefghijklmnopqrstuvwxyz';
 var numbers = '0123456789';
@@ -35,19 +35,19 @@ app.post('/',function(req, res, next){
     var remember = '';
     var pool = '';
 
-    if (req.body.lowerCase) {
+    if (req.body.lowerCase) 
         pool += lowerCase;
-    } if (req.body.numbers) {
+    if (req.body.numbers) 
         pool += numbers;
-    } if (req.body.symbols) {
+    if (req.body.symbols)
         pool += symbols;
-    } if (req.body.upperCase) {
+    if (req.body.upperCase)
         pool += upperCase;
-    } if (req.body.similar) {
+    if (req.body.similar)
         pool = pool.replace(/[|ilLI`oO0]/g, '');
-    } if (req.body.ambiguous) {
+    if (req.body.ambiguous)
         pool = pool.replace(/[{}\[\]\/\\()'"`~,;:.<>]/g, '');
-    }
+    
 
     // ilLI|`oO0
     // var password = generator.generate({
