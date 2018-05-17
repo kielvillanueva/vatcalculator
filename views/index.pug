@@ -17,21 +17,8 @@ html(lang='en')
         select#length.form-control(name='length')
           if len
             option= len
-          option 16
-          option 17
-          option 18
-          option 19
-          option 20
-          option 21
-          option 22
-          option 23
-          option 24
-          option 25
-          option 26
-          option 27
-          option 28
-          option 29
-          option 30
+          each val in [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+            option= val
         br
         .checkbox
           label
@@ -58,7 +45,7 @@ html(lang='en')
             input#ambiguous(type='checkbox', name='ambiguous' value='true' checked=amb)
             | Exclude Ambiguous Characters ({}[]/\()'"`~,;:.<>)
         br
-        input.btn.btn-default(type='submit')
+        input.btn.btn-default(type='submit' value="Generate")
         br
         br
         label(for='password') Password:

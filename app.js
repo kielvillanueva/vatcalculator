@@ -49,7 +49,6 @@ app.post('/',function(req, res, next){
         pool = pool.replace(/[{}\[\]\/\\()'"`~,;:.<>]/g, '');
     
 
-    // ilLI|`oO0
     // var password = generator.generate({
     //     length: req.body.length,
     //     numbers: req.body.numbers,
