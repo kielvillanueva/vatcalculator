@@ -1,9 +1,10 @@
 {
-  "name": "passwordgenerator",
+  "name": "vatcalculator",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "devstart": "nodemon ./bin/www"
   },
@@ -11,8 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
-    "generate-password": "^1.4.0",
-    "password-generator": "^2.2.0",
     "pug": "^2.0.3"
   },
   "devDependencies": {

@@ -12,44 +12,118 @@ html(lang='en')
     .container
       h1= title
       br
+      p Total Material Cost: 
+        span(style='font-weight:bold') 37,180.80
+      p Total Labor Cost: 
+        span(style='font-weight:bold') 8,000.00
       form(method='post', action='/')
-        label(for='length') Password Length:
-        select#length.form-control(name='length')
-          if len
-            option= len
-          each val in [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
-            option= val
-        br
-        .checkbox
-          label
-            input#symbols(type='checkbox', name='symbols', value='true' checked=sym)
-            | Include Symbols (ex. @#$%)
-        .checkbox
-          label
-            input#numbers(type='checkbox', name='numbers', value='true' checked=num)
-            | Include Numbers (ex. 123456)
-        .checkbox
-          label
-            input#lowerCase(type='checkbox', name='lowerCase', value='true' checked=low)
-            | Include Lower Case (ex. abcdefgh)
-        .checkbox
-          label
-            input#upperCase(type='checkbox', name='upperCase', value='true' checked=upp)
-            | Include Upper Case (ex. ABCDEFGH)
-        .checkbox
-          label
-            input#similar(type='checkbox', name='similar', value='true' checked=sim)
-            | Exclude Similar Characters (|ilLI`oO0)
-        .checkbox
-          label
-            input#ambiguous(type='checkbox', name='ambiguous' value='true' checked=amb)
-            | Exclude Ambiguous Characters ({}[]/\()'"`~,;:.<>)
+        .col-lg-6
+          label(for='vendorVatStatus') Vendor VAT Status:
+          select#length.form-control(name='vendorVatStatus')
+            if vendorVatStatus
+              option= vendorVatStatus
+            each vendorVatStatus in ['VAT', 'Non-VAT']
+              option= vendorVatStatus
+          br
+          label(for='priceVatStatus') Quoted Price VAT Status:
+          select#length.form-control(name='priceVatStatus')
+            if priceVatStatus
+              option= priceVatStatus
+            each priceVatStatus in ['VATInc', 'VATEx']
+              option= priceVatStatus
+          br
+          label(for='ewtRate') EWT Rate:
+          input#remember.form-control(type='text', name='ewtRate' value=ewtRate ? ewtRate : '3')
+          br
+          label(for='discountAppliedOn') Discount applied on:
+          select#length.form-control(name='discountAppliedOn')
+            if discountAppliedOn
+              option= discountAppliedOn
+            each discountAppliedOn in ['VATInc Price', 'VATEx Price']
+              option= discountAppliedOn
+          br
+        .col-lg-6
+          label(for='percentOfCostDiscount') % of Cost discount:
+          input#remember.form-control(type='text', name='percentOfCostDiscount' value=percentOfCostDiscount ? percentOfCostDiscount : '5')
+          br
+          label(for='percentOfCostDiscountedOn') Discounted on:
+          select#length.form-control(name='percentOfCostDiscountedOn')
+            if percentOfCostDiscountedOn
+              option= percentOfCostDiscountedOn
+            each percentOfCostDiscountedOn in ['Material Cost', 'L&E Cost', 'Total Cost']
+              option= percentOfCostDiscountedOn
+          br
+          label(for='fixedAmount') Fixed Amount:
+          input#remember.form-control(type='text', name='fixedAmount' value=fixedAmount ? fixedAmount : '1300')
+          br
+          label(for='fixedAmountDiscountedOn') Discounted on:
+          select#length.form-control(name='fixedAmountDiscountedOn')
+            if fixedAmountDiscountedOn
+              option= fixedAmountDiscountedOn
+            each fixedAmountDiscountedOn in ['Material Cost', 'L&E Cost']
+              option= fixedAmountDiscountedOn
+          br
         br
         input.btn.btn-default(type='submit' value="Generate")
         br
         br
-        label(for='password') Password:
-        input#txtPassword.form-control(type='text', name='txtPassword' value=pass)
         br
-        label(for='remember') Remember:
-        input#remember.form-control(type='text', name='remember' value=rem)
+        if computedData
+          table.ui.celled.table.center.aligned
+            thead
+              tr
+                th Computation
+                th Material Cost
+                th Labor Cost
+                th Total Cost
+            tbody
+              tr
+                td Total Cost (VATInc)
+                td #{vatIncMaterialCost}
+                td #{vatIncLaborCost}
+                td #{vatIncTotalCost}
+              tr
+                td Less: Order Discount Applied on VATInc
+                td #{orderDiscountMaterialCost}
+                td #{orderDiscountLaborCost}
+                td #{orderDiscountTotalCost}
+              tr
+                td Less: VAT
+                td #{vatMaterialCost}
+                td #{vatLaborCost}
+                td #{vatTotalCost}
+              tr
+                td Total Amount (VATEx)
+                td #{vatExMaterialCost}
+                td #{vatExLaborCost}
+                td #{vatExTotalCost}
+              tr
+                td Less: Order Discount Applied on VATEx
+                td #{orderDiscountAppliedMaterialCost}
+                td #{orderDiscountAppliedLaborCost}
+                td #{orderDiscountAppliedTotalCost}
+              tr
+                td Less: Discounted Total Cost (VATEx)
+                td #{discountedTotalMaterialCost}
+                td #{discountedTotalLaborCost}
+                td #{discountedTotalTotalCost}
+              tr
+                td Less: Add: VAT
+                td #{addVatMaterialCost}
+                td #{addVatLaborCost}
+                td #{addVatTotalCost}
+              tr
+                td Less: Less:  EWT
+                td 
+                td #{ewtLaborCost}
+                td #{ewtLaborCost}
+              tr
+                td Less: Add: Shipment / Delivery Cost
+                td 
+                td 
+                td #{shipmentTotalCost}
+              tr
+                td Less: NET TOTAL AMOUNT PAYABLE
+                td 
+                td 
+                td #{netTotalTotalCost}
