@@ -12,7 +12,6 @@ app.get('/', function (req, res) {
 
 app.post('/',function(req, res, next){
     const inputtedData = req.body;
-    console.log(inputtedData);
     var vatIncMaterialCost = 0, vatIncLaborCost = 0;
     var orderDiscountMaterialCost = 0, orderDiscountLaborCost = 0;
     var vatMaterialCost = 0, vatLaborCost = 0;
@@ -75,8 +74,8 @@ app.post('/',function(req, res, next){
     } 
 
     if(inputtedData['priceVatStatus'] == 'VATInc') {
-        vatExMaterialCost = vatExMaterialCost - orderDiscountMaterialCost - vatMaterialCost;
-        vatExLaborCost = vatExLaborCost - orderDiscountLaborCost - vatLaborCost;
+        vatExMaterialCost = vatIncMaterialCost - orderDiscountMaterialCost - vatMaterialCost;
+        vatExLaborCost = vatIncLaborCost - orderDiscountLaborCost - vatLaborCost;
 
         discountedTotalMaterialCost = vatIncMaterialCost;
         discountedTotalLaborCost = vatIncLaborCost;
