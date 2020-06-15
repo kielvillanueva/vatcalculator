@@ -1,4 +1,4 @@
-# vatcalculator
+# Vat Calculator
 
 Run **npm install**
 
